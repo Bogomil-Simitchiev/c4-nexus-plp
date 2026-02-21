@@ -1,13 +1,16 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import data from '../../data/data.json'
 import styles from './Header.module.css'
 
 const { categories } = data
 
-export default function Header({ activeCat }) {
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const activeCategory = location.pathname.replace('/', '')
 
   function handleCatClick(catId) {
     navigate(`/${catId}`)
@@ -25,7 +28,7 @@ export default function Header({ activeCat }) {
           {Object.values(categories).map(category => (
             <button
               key={category.id}
-              className={`${styles.navBtn} ${activeCat === category.id ? styles.active : ''}`}
+              className={`${styles.navBtn} ${activeCategory === category.id ? styles.active : ''}`}
               onClick={() => handleCatClick(category.id)}
             >
               {category.label}
@@ -61,7 +64,7 @@ export default function Header({ activeCat }) {
           {Object.values(categories).map(category => (
             <button
               key={category.id}
-              className={`${styles.mobileNavBtn} ${activeCat === category.id ? styles.active : ''}`}
+              className={`${styles.mobileNavBtn} ${activeCategory === category.id ? styles.active : ''}`}
               onClick={() => handleCatClick(category.id)}
             >
               {category.label}
