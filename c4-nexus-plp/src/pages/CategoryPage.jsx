@@ -3,13 +3,14 @@ import ProductList from "../components/ProductList/ProductList";
 import data from "../data/data.json";
 import styles from "./CategoryPage.module.css";
 import Toolbar from "../components/Toolbar/Toolbar";
+import AlertMessage from "../components/AlertMessage/AlertMessage";
 
 const { categories, products } = data;
 const PAGE_SIZE = 12;
 
 function CategoryPage({ categoryId }) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-   const [sortMode, setSortMode] = useState('default')
+  const [sortMode, setSortMode] = useState('default')
   const [alertMsg, setAlertMsg] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
 
@@ -42,7 +43,7 @@ function CategoryPage({ categoryId }) {
 
       <div className={styles.row}>
         <div className={styles.content}>
-           <Toolbar
+          <Toolbar
             shown={visibleProducts.length}
             total={filtered.length}
             sortMode={sortMode}
@@ -66,6 +67,12 @@ function CategoryPage({ categoryId }) {
           </div>
         </div>
       </div>
+      
+      <AlertMessage
+        message={alertMsg}
+        visible={alertVisible}
+        onHide={() => setAlertVisible(false)}
+      />
     </main>
   );
 }
