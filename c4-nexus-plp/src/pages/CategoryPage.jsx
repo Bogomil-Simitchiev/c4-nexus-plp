@@ -1,11 +1,24 @@
-import data from '../data/data.json'
-import styles from './CategoryPage.module.css'
+import { useEffect, useState } from "react";
+import ProductList from "../components/ProductList/ProductList";
+import data from "../data/data.json";
+import styles from "./CategoryPage.module.css";
 
-const { categories  } = data
+const { categories, products } = data;
+const PAGE_SIZE = 12;
 
 function CategoryPage({ categoryId }) {
- 
-  const category = categories[categoryId]
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [toastMsg, setToastMsg] = useState("");
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const category = categories[categoryId];
+
+  // Filter
+  let filtered = products.filter((p) => p.cat === categoryId);
+
+  const visibleProducts = filtered.slice(0, visibleCount);
+
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <main className={styles.main}>
@@ -15,18 +28,27 @@ function CategoryPage({ categoryId }) {
       </div>
 
       <div className={styles.row}>
-
         <div className={styles.content}>
+          <ProductList
+            products={visibleProducts}
+            onAddToCart={(name) => {
+              setToastMsg(`"${name}" added to cart!`);
+              setToastVisible(true);
+            }}
+          />
           <div className={styles.loadMoreWrap}>
             <button
               className={styles.loadMoreBtn}
-            > Load More
+              onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+              disabled={!hasMore}
+            >
+              {hasMore ? "Load More" : "All products shown"}
             </button>
           </div>
         </div>
       </div>
     </main>
-  )
+  );
 }
 
-export default CategoryPage
+export default CategoryPage;
