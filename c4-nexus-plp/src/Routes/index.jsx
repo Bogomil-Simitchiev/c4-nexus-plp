@@ -5,8 +5,8 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/bags" replace />} />
-      <Route path="/bags" element={<CategoryPage categoryId="bags" />} />
-      <Route path="/shoes" element={<CategoryPage categoryId="shoes" />} />
+      <Route path="/bags" element={<CategoryPage key="bags" categoryId="bags" />} />
+      <Route path="/shoes" element={<CategoryPage key="shoes" categoryId="shoes" />} />
       <Route path="*" element={<Navigate to="/bags" replace />} />
     </Routes>
   );
