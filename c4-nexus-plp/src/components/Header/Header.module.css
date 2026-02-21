@@ -1,0 +1,139 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+/* Desktop nav */
+.nav {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.navBtn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.4rem 1rem;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.navBtn:hover {
+  color: #fff;
+}
+
+.navBtn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Icons */
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  padding: 0.35rem;
+  border-radius: var(--radius);
+  transition: color 0.2s;
+}
+
+.iconBtn:hover {
+  color: #fff;
+}
+
+/* Burger */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0.3rem;
+}
+
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 2px;
+}
+
+/* Mobile nav */
+.mobileNav {
+  background: var(--dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1.5rem 1rem;
+}
+
+.mobileNavBtn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: left;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.65rem 0;
+  transition: color 0.2s;
+}
+
+.mobileNavBtn:hover,
+.mobileNavBtn.active {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .inner {
+    padding: 0 1.25rem;
+  }
+  .nav {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+}
