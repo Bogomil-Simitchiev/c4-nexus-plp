@@ -4,6 +4,7 @@ import data from "../data/data.json";
 import styles from "./CategoryPage.module.css";
 import Toolbar from "../components/Toolbar/Toolbar";
 import AlertMessage from "../components/AlertMessage/AlertMessage";
+import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
 
 const { categories, products } = data;
 const PAGE_SIZE = 12;
@@ -73,6 +74,7 @@ function CategoryPage({ categoryId }) {
         visible={alertVisible}
         onHide={() => setAlertVisible(false)}
       />
+      <ScrollToTopButton />
     </main>
   );
 }
