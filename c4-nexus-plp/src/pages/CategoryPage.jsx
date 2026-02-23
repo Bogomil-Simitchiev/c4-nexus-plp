@@ -5,25 +5,40 @@ import styles from "./CategoryPage.module.css";
 import Toolbar from "../components/Toolbar/Toolbar";
 import AlertMessage from "../components/AlertMessage/AlertMessage";
 import ScrollToTopButton from "../components/ScrollToTopButton/ScrollToTopButton";
+import FilterProducts from "../components/FilterProducts/FilterProducts";
 
-const { categories, products } = data;
+const { categories, priceRanges, products } = data;
 const PAGE_SIZE = 12;
 
 function CategoryPage({ categoryId }) {
+  const [selectedColors, setSelectedColors]     = useState([])
+  const [selectedRangeIdx, setSelectedRangeIdx] = useState(null)
+  const [saleOnly, setSaleOnly] = useState(false)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [sortMode, setSortMode] = useState('default')
   const [alertMsg, setAlertMsg] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
 
-  function handleSort(val) {
-    setSortMode(val)
-    setVisibleCount(PAGE_SIZE)
-  }
-
   const category = categories[categoryId];
 
   // Filter logics
   let filtered = products.filter((p) => p.cat === categoryId);
+  // filter by selected colors if any
+  if (selectedColors.length > 0) {
+    filtered = filtered.filter(p => selectedColors.includes(p.colorHex))
+  }
+  // filter by selected price range if any
+  if (selectedRangeIdx !== null) {
+    const range = priceRanges[selectedRangeIdx]
+    filtered = filtered.filter(p => {
+      const price = p.salePrice ?? p.price
+      return price >= range.min && price <= range.max
+    })
+  }
+  // filter by sale only if toggled
+  if (saleOnly) {
+    filtered = filtered.filter(p => p.salePrice !== null)
+  }
 
   // Sort logics
   if (sortMode === 'az')   filtered.sort((a, b) => a.name.localeCompare(b.name))
@@ -35,6 +50,36 @@ function CategoryPage({ categoryId }) {
 
   const hasMore = visibleCount < filtered.length;
 
+  // Handlers for filter/sort controls
+   function handleSort(val) {
+    setSortMode(val);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  function handleColorToggle(hex) {
+    setSelectedColors(prev =>
+      prev.includes(hex) ? prev.filter(c => c !== hex) : [...prev, hex]
+    )
+    setVisibleCount(PAGE_SIZE)
+  }
+
+  function handleRangeToggle(idx) {
+    setSelectedRangeIdx(prev => prev === idx ? null : idx)
+    setVisibleCount(PAGE_SIZE)
+  }
+
+  function handleSaleToggle() {
+    setSaleOnly(prev => !prev)
+    setVisibleCount(PAGE_SIZE)
+  }
+
+  function handleClear() {
+    setSelectedColors([])
+    setSelectedRangeIdx(null)
+    setSaleOnly(false)
+    setVisibleCount(PAGE_SIZE)
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.categoryHeader}>
@@ -43,6 +88,18 @@ function CategoryPage({ categoryId }) {
       </div>
 
       <div className={styles.row}>
+        <FilterProducts
+            categoryId={categoryId}
+            allProducts={products}
+            selectedColors={selectedColors}
+            selectedRangeIdx={selectedRangeIdx}
+            priceRanges={priceRanges}
+            saleOnly={saleOnly}
+            onColorToggle={handleColorToggle}
+            onRangeToggle={handleRangeToggle}
+            onSaleToggle={handleSaleToggle}
+            onClear={handleClear}
+          />
         <div className={styles.content}>
           <Toolbar
             shown={visibleProducts.length}

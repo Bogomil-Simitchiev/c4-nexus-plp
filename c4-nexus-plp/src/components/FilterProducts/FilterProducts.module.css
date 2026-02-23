@@ -1,0 +1,141 @@
+.panel {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  align-self: flex-start;
+  position: sticky;
+  top: 80px;
+}
+
+/* Mobile toggle button, set it none visible at the beginning */
+.toggleBtn {
+  display: none;
+  width: 100%;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark);
+  text-align: left;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.arrow {
+  margin-left: auto;
+  color: var(--grey);
+}
+
+/* Body */
+.body {
+  padding: 1.25rem;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.clearBtn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.clearBtn:hover {
+  opacity: 0.75;
+}
+
+/* Group */
+.group {
+  margin-bottom: 1.4rem;
+}
+
+.groupTitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 0.65rem;
+}
+
+/* Color swatches */
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: transform 0.15s;
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+.swatchActive {
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--dark) !important;
+  transform: scale(1.1);
+}
+
+/* Checkboxes */
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  color: var(--grey);
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.checkLabel:hover {
+  color: var(--dark);
+}
+
+.checkbox {
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* Mobile */
+@media (max-width: 860px) {
+  .panel {
+    width: 100%;
+    position: static;
+  }
+
+  .toggleBtn {
+    display: flex;
+  }
+}
