@@ -10,7 +10,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2.5rem;
-  height: 64px;
+  height: 74px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -24,10 +24,23 @@
   color: #fff;
   letter-spacing: 0.04em;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .logo span {
   color: var(--accent);
+}
+
+.logoImg {
+  height: 74px;
+  width: auto;
+  object-fit: contain;
+  margin-right: 20px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
 }
 
 /* Desktop nav */

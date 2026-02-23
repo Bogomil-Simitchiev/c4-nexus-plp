@@ -6,7 +6,7 @@
   border-radius: var(--radius);
   align-self: flex-start;
   position: sticky;
-  top: 80px;
+  top: 94px;
 }
 
 /* Mobile toggle button, set it none visible at the beginning */

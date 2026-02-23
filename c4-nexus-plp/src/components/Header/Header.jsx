@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import data from '../../data/data.json'
-import styles from './Header.module.css'
+import { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import data from "../../data/data.json";
+import styles from "./Header.module.css";
 
-const { categories } = data
+const { categories } = data;
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const navigate = useNavigate()
-  const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const activeCategory = location.pathname.replace('/', '')
+  const activeCategory = location.pathname.replace("/", "");
 
   function handleCatClick(catId) {
-    navigate(`/${catId}`)
-    setMenuOpen(false)
+    navigate(`/${catId}`);
+    setMenuOpen(false);
   }
 
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link to="/bags" className={styles.logo}>
-          Nexus<span>Store</span>
+          <div className={styles.logoContainer}>
+            <img
+              src="/assets/logo.png"
+              alt="Nexus Store"
+              className={styles.logoImg}
+            />
+            Nexus<span>Store</span>
+          </div>
         </Link>
 
         <nav className={styles.nav}>
-          {Object.values(categories).map(category => (
+          {Object.values(categories).map((category) => (
             <button
               key={category.id}
-              className={`${styles.navBtn} ${activeCategory === category.id ? styles.active : ''}`}
+              className={`${styles.navBtn} ${activeCategory === category.id ? styles.active : ""}`}
               onClick={() => handleCatClick(category.id)}
             >
               {category.label}
@@ -38,33 +45,50 @@ export default function Header() {
 
         <div className={styles.icons}>
           <button className={styles.iconBtn} aria-label="Search">
-            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <svg
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </button>
           <button className={styles.iconBtn} aria-label="Cart">
-            <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <path d="M16 10a4 4 0 01-8 0"/>
+            <svg
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 01-8 0" />
             </svg>
           </button>
           <button
             className={styles.burger}
-            onClick={() => setMenuOpen(v => !v)}
+            onClick={() => setMenuOpen((v) => !v)}
             aria-label="Open menu"
           >
-            <span /><span /><span />
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
 
       {menuOpen && (
         <nav className={styles.mobileNav}>
-          {Object.values(categories).map(category => (
+          {Object.values(categories).map((category) => (
             <button
               key={category.id}
-              className={`${styles.mobileNavBtn} ${activeCategory === category.id ? styles.active : ''}`}
+              className={`${styles.mobileNavBtn} ${activeCategory === category.id ? styles.active : ""}`}
               onClick={() => handleCatClick(category.id)}
             >
               {category.label}
@@ -73,5 +97,5 @@ export default function Header() {
         </nav>
       )}
     </header>
-  )
+  );
 }
