@@ -24,11 +24,6 @@
   animation: fadeUp 0.3s ease both;
 }
 
-.card:hover {
-  box-shadow: var(--shadow);
-  transform: translateY(-3px);
-}
-
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -53,10 +48,6 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
-}
-
-.card:hover .image {
-  transform: scale(1.04);
 }
 
 /* Badge */
@@ -192,8 +183,22 @@
   text-transform: uppercase;
   transition: background 0.2s;
   margin-top: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.addBtn:hover {
-  background: var(--accent);
+/* Here it makes hover effects only on desktop */
+@media (hover: hover) and (pointer: fine) {
+  .addBtn:hover {
+    background: var(--accent);
+  }
+
+  .card:hover .image {
+    transform: scale(1.04);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-3px);
+  }
 }
