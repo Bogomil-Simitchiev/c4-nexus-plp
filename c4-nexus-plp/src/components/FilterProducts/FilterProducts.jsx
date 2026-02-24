@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './FilterProducts.module.css'
 
 function getUniqueColors(products, catId) {
@@ -13,6 +13,8 @@ function getUniqueColors(products, catId) {
   return result
 }
 
+const mobileViewBreakpoint = 860;
+
 export default function FilterPanel({
   categoryId,
   allProducts,
@@ -25,7 +27,15 @@ export default function FilterPanel({
   onSaleToggle,
   onClear,
 }) {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(window.innerWidth > mobileViewBreakpoint)
+  // Here I add a resize listener to automatically open/close the panel based on screen width
+  useEffect(() => {
+  function handleResize() {
+    setIsOpen(window.innerWidth > mobileViewBreakpoint)
+  }
+  window.addEventListener('resize', handleResize)
+  return () => window.removeEventListener('resize', handleResize)
+}, [])
 
   // Here I get all unique colors for the current category to display in the filter panel.
   const colors = getUniqueColors(allProducts, categoryId)
